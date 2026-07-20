@@ -10,7 +10,7 @@ export let currentInstance: Component | null = null
  * on previously manually authored types from Vue 2
  */
 export function getCurrentInstance(): { proxy: Component } | null {
-  return currentInstance && { proxy: currentInstance }
+    throw new Error("STUB");
 }
 
 /**

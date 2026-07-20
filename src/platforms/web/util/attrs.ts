@@ -11,12 +11,7 @@ export const mustUseProp = (
   type?: string | null,
   attr?: string
 ): boolean => {
-  return (
-    (attr === 'value' && acceptValue(tag) && type !== 'button') ||
-    (attr === 'selected' && tag === 'option') ||
-    (attr === 'checked' && tag === 'input') ||
-    (attr === 'muted' && tag === 'video')
-  )
+    throw new Error("STUB");
 }
 
 export const isEnumeratedAttr = makeMap('contenteditable,draggable,spellcheck')
@@ -26,12 +21,7 @@ const isValidContentEditableValue = makeMap(
 )
 
 export const convertEnumeratedValue = (key: string, value: any) => {
-  return isFalsyAttrValue(value) || value === 'false'
-    ? 'false'
-    : // allow arbitrary string value for contenteditable
-    key === 'contenteditable' && isValidContentEditableValue(value)
-    ? value
-    : 'true'
+    throw new Error("STUB");
 }
 
 export const isBooleanAttr = makeMap(
@@ -50,7 +40,7 @@ export const isXlink = (name: string): boolean => {
 }
 
 export const getXlinkProp = (name: string): string => {
-  return isXlink(name) ? name.slice(6, name.length) : ''
+    throw new Error("STUB");
 }
 
 export const isFalsyAttrValue = (val: any): boolean => {

@@ -36,13 +36,7 @@ if (__DEV__) {
     vm: any,
     key: any
   ) {
-    if (!vm) {
-      warn(
-        `option "${key}" can only be used during instance ` +
-          'creation with the `new` keyword.'
-      )
-    }
-    return defaultStrat(parent, child)
+      throw new Error("STUB");
   }
 }
 
@@ -102,25 +96,11 @@ export function mergeDataOrFn(
     // check if parentVal is a function here because
     // it has to be a function to pass previous merges.
     return function mergedDataFn() {
-      return mergeData(
-        isFunction(childVal) ? childVal.call(this, this) : childVal,
-        isFunction(parentVal) ? parentVal.call(this, this) : parentVal
-      )
+        throw new Error("STUB");
     }
   } else {
     return function mergedInstanceDataFn() {
-      // instance merge
-      const instanceData = isFunction(childVal)
-        ? childVal.call(vm, vm)
-        : childVal
-      const defaultData = isFunction(parentVal)
-        ? parentVal.call(vm, vm)
-        : parentVal
-      if (instanceData) {
-        return mergeData(instanceData, defaultData)
-      } else {
-        return defaultData
-      }
+        throw new Error("STUB");
     }
   }
 }
@@ -130,22 +110,7 @@ strats.data = function (
   childVal: any,
   vm?: Component
 ): Function | null {
-  if (!vm) {
-    if (childVal && typeof childVal !== 'function') {
-      __DEV__ &&
-        warn(
-          'The "data" option should be a function ' +
-            'that returns a per-instance value in component ' +
-            'definitions.',
-          vm
-        )
-
-      return parentVal
-    }
-    return mergeDataOrFn(parentVal, childVal)
-  }
-
-  return mergeDataOrFn(parentVal, childVal, vm)
+    throw new Error("STUB");
 }
 
 /**
@@ -176,7 +141,7 @@ function dedupeHooks(hooks: any) {
 }
 
 LIFECYCLE_HOOKS.forEach(hook => {
-  strats[hook] = mergeLifecycleHook
+    throw new Error("STUB");
 })
 
 /**
@@ -192,17 +157,11 @@ function mergeAssets(
   vm: Component | null,
   key: string
 ): Object {
-  const res = Object.create(parentVal || null)
-  if (childVal) {
-    __DEV__ && assertObjectType(key, childVal, vm)
-    return extend(res, childVal)
-  } else {
-    return res
-  }
+    throw new Error("STUB");
 }
 
 ASSET_TYPES.forEach(function (type) {
-  strats[type + 's'] = mergeAssets
+    throw new Error("STUB");
 })
 
 /**
@@ -217,28 +176,7 @@ strats.watch = function (
   vm: Component | null,
   key: string
 ): Object | null {
-  // work around Firefox's Object.prototype.watch...
-  //@ts-expect-error work around
-  if (parentVal === nativeWatch) parentVal = undefined
-  //@ts-expect-error work around
-  if (childVal === nativeWatch) childVal = undefined
-  /* istanbul ignore if */
-  if (!childVal) return Object.create(parentVal || null)
-  if (__DEV__) {
-    assertObjectType(key, childVal, vm)
-  }
-  if (!parentVal) return childVal
-  const ret: Record<string, any> = {}
-  extend(ret, parentVal)
-  for (const key in childVal) {
-    let parent = ret[key]
-    const child = childVal[key]
-    if (parent && !isArray(parent)) {
-      parent = [parent]
-    }
-    ret[key] = parent ? parent.concat(child) : isArray(child) ? child : [child]
-  }
-  return ret
+    throw new Error("STUB");
 }
 
 /**
@@ -254,30 +192,11 @@ strats.props =
       vm: Component | null,
       key: string
     ): Object | null {
-      if (childVal && __DEV__) {
-        assertObjectType(key, childVal, vm)
-      }
-      if (!parentVal) return childVal
-      const ret = Object.create(null)
-      extend(ret, parentVal)
-      if (childVal) extend(ret, childVal)
-      return ret
+        throw new Error("STUB");
     }
 
 strats.provide = function (parentVal: Object | null, childVal: Object | null) {
-  if (!parentVal) return childVal
-  return function () {
-    const ret = Object.create(null)
-    mergeData(ret, isFunction(parentVal) ? parentVal.call(this) : parentVal)
-    if (childVal) {
-      mergeData(
-        ret,
-        isFunction(childVal) ? childVal.call(this) : childVal,
-        false // non-recursive
-      )
-    }
-    return ret
-  }
+    throw new Error("STUB");
 }
 
 /**

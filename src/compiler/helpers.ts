@@ -6,7 +6,7 @@ type Range = { start?: number; end?: number }
 
 /* eslint-disable no-unused-vars */
 export function baseWarn(msg: string, range?: Range) {
-  console.error(`[Vue compiler]: ${msg}`)
+    throw new Error("STUB");
 }
 /* eslint-enable no-unused-vars */
 
@@ -14,7 +14,7 @@ export function pluckModuleFunction<T, K extends keyof T>(
   modules: Array<T> | undefined,
   key: K
 ): Array<Exclude<T[K], undefined>> {
-  return modules ? (modules.map(m => m[key]).filter(_ => _) as any) : []
+  return modules ? (modules.map(m => { throw new Error("STUB"); }).filter(_ => { throw new Error("STUB"); }) as any) : []
 }
 
 export function addProp(
@@ -51,8 +51,7 @@ export function addRawAttr(
   value: any,
   range?: Range
 ) {
-  el.attrsMap[name] = value
-  el.attrsList.push(rangeSetItem({ name, value }, range))
+    throw new Error("STUB");
 }
 
 export function addDirective(

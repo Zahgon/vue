@@ -85,7 +85,7 @@ function genHandler(
   }
 
   if (Array.isArray(handler)) {
-    return `[${handler.map(handler => genHandler(handler)).join(',')}]`
+    return `[${handler.map(handler => { throw new Error("STUB"); }).join(',')}]`
   }
 
   const isMethodPath = simplePathRE.test(handler.value)
@@ -116,8 +116,8 @@ function genHandler(
         const modifiers = handler.modifiers
         genModifierCode += genGuard(
           ['ctrl', 'shift', 'alt', 'meta']
-            .filter(keyModifier => !modifiers[keyModifier])
-            .map(keyModifier => `$event.${keyModifier}Key`)
+            .filter(keyModifier => { throw new Error("STUB"); })
+            .map(keyModifier => { throw new Error("STUB"); })
             .join('||')
         )
       } else {
@@ -153,18 +153,5 @@ function genKeyFilter(keys: Array<string>): string {
 }
 
 function genFilterCode(key: string): string {
-  const keyVal = parseInt(key, 10)
-  if (keyVal) {
-    return `$event.keyCode!==${keyVal}`
-  }
-  const keyCode = keyCodes[key]
-  const keyName = keyNames[key]
-  return (
-    `_k($event.keyCode,` +
-    `${JSON.stringify(key)},` +
-    `${JSON.stringify(keyCode)},` +
-    `$event.key,` +
-    `${JSON.stringify(keyName)}` +
-    `)`
-  )
+    throw new Error("STUB");
 }

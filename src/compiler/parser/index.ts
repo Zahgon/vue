@@ -91,12 +91,7 @@ export function parse(template: string, options: CompilerOptions): ASTElement {
   platformGetTagNamespace = options.getTagNamespace || no
   const isReservedTag = options.isReservedTag || no
   maybeComponent = (el: ASTElement) =>
-    !!(
-      el.component ||
-      el.attrsMap[':is'] ||
-      el.attrsMap['v-bind:is'] ||
-      !(el.attrsMap.is ? isReservedTag(el.attrsMap.is) : isReservedTag(el.tag))
-    )
+    { throw new Error("STUB"); }
   transforms = pluckModuleFunction(options.modules, 'transformNode')
   preTransforms = pluckModuleFunction(options.modules, 'preTransformNode')
   postTransforms = pluckModuleFunction(options.modules, 'postTransformNode')
@@ -164,7 +159,7 @@ export function parse(template: string, options: CompilerOptions): ASTElement {
 
     // final children cleanup
     // filter out scoped slots
-    element.children = element.children.filter(c => !c.slotScope)
+    element.children = element.children.filter(c => { throw new Error("STUB"); })
     // remove trailing whitespace node again
     trimEndingWhitespace(element)
 
@@ -243,23 +238,11 @@ export function parse(template: string, options: CompilerOptions): ASTElement {
           element.start = start
           element.end = end
           element.rawAttrsMap = element.attrsList.reduce((cumulated, attr) => {
-            cumulated[attr.name] = attr
-            return cumulated
+              throw new Error("STUB");
           }, {})
         }
         attrs.forEach(attr => {
-          if (invalidAttributeRE.test(attr.name)) {
-            warn(
-              `Invalid dynamic argument expression: attribute names cannot contain ` +
-                `spaces, quotes, <, >, / or =.`,
-              options.outputSourceRange
-                ? {
-                    start: attr.start! + attr.name.indexOf(`[`),
-                    end: attr.start! + attr.name.length
-                  }
-                : undefined
-            )
-          }
+            throw new Error("STUB");
         })
       }
 
@@ -714,10 +697,7 @@ function processSlotContent(el) {
         slotContainer.slotTarget = name
         slotContainer.slotTargetDynamic = dynamic
         slotContainer.children = el.children.filter((c: any) => {
-          if (!c.slotScope) {
-            c.parent = slotContainer
-            return true
-          }
+            throw new Error("STUB");
         })
         slotContainer.slotScope = slotBinding.value || emptySlotScopeToken
         // remove children as they are returned from scopedSlots now
@@ -935,7 +915,7 @@ function parseModifiers(name: string): Object | void {
   if (match) {
     const ret = {}
     match.forEach(m => {
-      ret[m.slice(1)] = true
+        throw new Error("STUB");
     })
     return ret
   }

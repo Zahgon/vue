@@ -37,38 +37,14 @@ Vue.prototype.$mount = function (
   el?: string | Element,
   hydrating?: boolean
 ): Component {
-  el = el && inBrowser ? query(el) : undefined
-  return mountComponent(this, el, hydrating)
+    throw new Error("STUB");
 }
 
 // devtools global hook
 /* istanbul ignore next */
 if (inBrowser) {
   setTimeout(() => {
-    if (config.devtools) {
-      if (devtools) {
-        devtools.emit('init', Vue)
-      } else if (__DEV__ && process.env.NODE_ENV !== 'test') {
-        // @ts-expect-error
-        console[console.info ? 'info' : 'log'](
-          'Download the Vue Devtools extension for a better development experience:\n' +
-            'https://github.com/vuejs/vue-devtools'
-        )
-      }
-    }
-    if (
-      __DEV__ &&
-      process.env.NODE_ENV !== 'test' &&
-      config.productionTip !== false &&
-      typeof console !== 'undefined'
-    ) {
-      // @ts-expect-error
-      console[console.info ? 'info' : 'log'](
-        `You are running Vue in development mode.\n` +
-          `Make sure to turn on production mode when deploying for production.\n` +
-          `See more tips at https://vuejs.org/guide/deployment.html`
-      )
-    }
+      throw new Error("STUB");
   }, 0)
 }
 

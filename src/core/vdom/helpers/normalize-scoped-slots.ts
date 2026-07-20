@@ -64,20 +64,7 @@ export function normalizeScopedSlots(
 
 function normalizeScopedSlot(vm, normalSlots, key, fn) {
   const normalized = function () {
-    const cur = currentInstance
-    setCurrentInstance(vm)
-    let res = arguments.length ? fn.apply(null, arguments) : fn({})
-    res =
-      res && typeof res === 'object' && !isArray(res)
-        ? [res] // single vnode
-        : normalizeChildren(res)
-    const vnode: VNode | null = res && res[0]
-    setCurrentInstance(cur)
-    return res &&
-      (!vnode ||
-        (res.length === 1 && vnode.isComment && !isAsyncPlaceholder(vnode))) // #9658, #10391
-      ? undefined
-      : res
+      throw new Error("STUB");
   }
   // this is a slot using the new v-slot syntax without scope. although it is
   // compiled as a scoped slot, render fn users would expect it to be present
@@ -93,5 +80,5 @@ function normalizeScopedSlot(vm, normalSlots, key, fn) {
 }
 
 function proxyNormalSlot(slots, key) {
-  return () => slots[key]
+  return () => { throw new Error("STUB"); }
 }

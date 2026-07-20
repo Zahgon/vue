@@ -88,7 +88,7 @@ export { useCssVars } from './sfc-helpers/useCssVars'
  * @internal type is manually declared in <root>/types/v3-define-component.d.ts
  */
 export function defineComponent(options: any) {
-  return options
+    throw new Error("STUB");
 }
 
 export { defineAsyncComponent } from './apiAsyncComponent'

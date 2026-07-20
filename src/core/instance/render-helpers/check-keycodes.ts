@@ -2,11 +2,7 @@ import config from 'core/config'
 import { hyphenate, isArray } from 'shared/util'
 
 function isKeyNotMatch<T>(expect: T | Array<T>, actual: T): boolean {
-  if (isArray(expect)) {
-    return expect.indexOf(actual) === -1
-  } else {
-    return expect !== actual
-  }
+    throw new Error("STUB");
 }
 
 /**
@@ -21,13 +17,5 @@ export function checkKeyCodes(
   eventKeyName?: string,
   builtInKeyName?: string | Array<string>
 ): boolean | null | undefined {
-  const mappedKeyCode = config.keyCodes[key] || builtInKeyCode
-  if (builtInKeyName && eventKeyName && !config.keyCodes[key]) {
-    return isKeyNotMatch(builtInKeyName, eventKeyName)
-  } else if (mappedKeyCode) {
-    return isKeyNotMatch(mappedKeyCode, eventKeyCode)
-  } else if (eventKeyName) {
-    return hyphenate(eventKeyName) !== key
-  }
-  return eventKeyCode === undefined
+    throw new Error("STUB");
 }

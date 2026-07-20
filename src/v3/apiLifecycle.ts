@@ -7,18 +7,7 @@ function createLifeCycle<T extends (...args: any[]) => any = () => void>(
   hookName: string
 ) {
   return (fn: T, target: any = currentInstance) => {
-    if (!target) {
-      __DEV__ &&
-        warn(
-          `${formatName(
-            hookName
-          )} is called when there is no active component instance to be ` +
-            `associated with. ` +
-            `Lifecycle injection APIs can only be used during execution of setup().`
-        )
-      return
-    }
-    return injectHook(target, hookName, fn)
+      throw new Error("STUB");
   }
 }
 
@@ -64,5 +53,5 @@ export function onErrorCaptured<TError = Error>(
   hook: ErrorCapturedHook<TError>,
   target: any = currentInstance
 ) {
-  injectErrorCapturedHook(hook, target)
+    throw new Error("STUB");
 }

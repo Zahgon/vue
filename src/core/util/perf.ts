@@ -17,12 +17,9 @@ if (__DEV__) {
     // @ts-ignore
     perf.clearMeasures
   ) {
-    mark = tag => perf.mark(tag)
+    mark = tag => { throw new Error("STUB"); }
     measure = (name, startTag, endTag) => {
-      perf.measure(name, startTag, endTag)
-      perf.clearMarks(startTag)
-      perf.clearMarks(endTag)
-      // perf.clearMeasures(name)
+        throw new Error("STUB");
     }
   }
 }

@@ -123,5 +123,5 @@ function defineReadonlyProperty(
  * This is used for creating the props proxy object for stateful components.
  */
 export function shallowReadonly<T extends object>(target: T): Readonly<T> {
-  return createReadonly(target, true)
+    throw new Error("STUB");
 }

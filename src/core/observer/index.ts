@@ -50,38 +50,7 @@ export class Observer {
   vmCount: number // number of vms that have this object as root $data
 
   constructor(public value: any, public shallow = false, public mock = false) {
-    // this.value = value
-    this.dep = mock ? mockDep : new Dep()
-    this.vmCount = 0
-    def(value, '__ob__', this)
-    if (isArray(value)) {
-      if (!mock) {
-        if (hasProto) {
-          /* eslint-disable no-proto */
-          ;(value as any).__proto__ = arrayMethods
-          /* eslint-enable no-proto */
-        } else {
-          for (let i = 0, l = arrayKeys.length; i < l; i++) {
-            const key = arrayKeys[i]
-            def(value, key, arrayMethods[key])
-          }
-        }
-      }
-      if (!shallow) {
-        this.observeArray(value)
-      }
-    } else {
-      /**
-       * Walk through all properties and convert them into
-       * getter/setters. This method should only be called when
-       * value type is Object.
-       */
-      const keys = Object.keys(value)
-      for (let i = 0; i < keys.length; i++) {
-        const key = keys[i]
-        defineReactive(value, key, NO_INITIAL_VALUE, undefined, shallow, mock)
-      }
-    }
+      throw new Error("STUB");
   }
 
   /**
@@ -156,57 +125,10 @@ export function defineReactive(
     enumerable: true,
     configurable: true,
     get: function reactiveGetter() {
-      const value = getter ? getter.call(obj) : val
-      if (Dep.target) {
-        if (__DEV__) {
-          dep.depend({
-            target: obj,
-            type: TrackOpTypes.GET,
-            key
-          })
-        } else {
-          dep.depend()
-        }
-        if (childOb) {
-          childOb.dep.depend()
-          if (isArray(value)) {
-            dependArray(value)
-          }
-        }
-      }
-      return isRef(value) && !shallow ? value.value : value
+        throw new Error("STUB");
     },
     set: function reactiveSetter(newVal) {
-      const value = getter ? getter.call(obj) : val
-      if (!hasChanged(value, newVal)) {
-        return
-      }
-      if (__DEV__ && customSetter) {
-        customSetter()
-      }
-      if (setter) {
-        setter.call(obj, newVal)
-      } else if (getter) {
-        // #7981: for accessor properties without setter
-        return
-      } else if (!shallow && isRef(value) && !isRef(newVal)) {
-        value.value = newVal
-        return
-      } else {
-        val = newVal
-      }
-      childOb = shallow ? newVal && newVal.__ob__ : observe(newVal, false, mock)
-      if (__DEV__) {
-        dep.notify({
-          type: TriggerOpTypes.SET,
-          target: obj,
-          key,
-          newValue: newVal,
-          oldValue: value
-        })
-      } else {
-        dep.notify()
-      }
+        throw new Error("STUB");
     }
   })
 
@@ -281,45 +203,7 @@ export function set(
 export function del<T>(array: T[], key: number): void
 export function del(object: object, key: string | number): void
 export function del(target: any[] | object, key: any) {
-  if (__DEV__ && (isUndef(target) || isPrimitive(target))) {
-    warn(
-      `Cannot delete reactive property on undefined, null, or primitive value: ${target}`
-    )
-  }
-  if (isArray(target) && isValidArrayIndex(key)) {
-    target.splice(key, 1)
-    return
-  }
-  const ob = (target as any).__ob__
-  if ((target as any)._isVue || (ob && ob.vmCount)) {
-    __DEV__ &&
-      warn(
-        'Avoid deleting properties on a Vue instance or its root $data ' +
-          '- just set it to null.'
-      )
-    return
-  }
-  if (isReadonly(target)) {
-    __DEV__ &&
-      warn(`Delete operation on key "${key}" failed: target is readonly.`)
-    return
-  }
-  if (!hasOwn(target, key)) {
-    return
-  }
-  delete target[key]
-  if (!ob) {
-    return
-  }
-  if (__DEV__) {
-    ob.dep.notify({
-      type: TriggerOpTypes.DELETE,
-      target: target,
-      key
-    })
-  } else {
-    ob.dep.notify()
-  }
+    throw new Error("STUB");
 }
 
 /**

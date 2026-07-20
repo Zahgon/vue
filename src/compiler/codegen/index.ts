@@ -35,17 +35,7 @@ export class CodegenState {
   pre: boolean
 
   constructor(options: CompilerOptions) {
-    this.options = options
-    this.warn = options.warn || baseWarn
-    this.transforms = pluckModuleFunction(options.modules, 'transformCode')
-    this.dataGenFns = pluckModuleFunction(options.modules, 'genData')
-    this.directives = extend(extend({}, baseDirectives), options.directives)
-    const isReservedTag = options.isReservedTag || no
-    this.maybeComponent = (el: ASTElement) =>
-      !!el.component || !isReservedTag(el.tag)
-    this.onceId = 0
-    this.staticRenderFns = []
-    this.pre = false
+      throw new Error("STUB");
   }
 }
 
@@ -405,7 +395,7 @@ function genInlineTemplate(
     return `inlineTemplate:{render:function(){${
       inlineRenderFns.render
     }},staticRenderFns:[${inlineRenderFns.staticRenderFns
-      .map(code => `function(){${code}}`)
+      .map(code => { throw new Error("STUB"); })
       .join(',')}]}`
   }
 }
@@ -422,10 +412,7 @@ function genScopedSlots(
   let needsForceUpdate =
     el.for ||
     Object.keys(slots).some(key => {
-      const slot = slots[key]
-      return (
-        slot.slotTargetDynamic || slot.if || slot.for || containsSlotChild(slot) // is passing down slot from parent which may be dynamic
-      )
+        throw new Error("STUB");
     })
 
   // #9534: if a component with scoped slots is inside a conditional branch,
@@ -457,7 +444,7 @@ function genScopedSlots(
   }
 
   const generatedSlots = Object.keys(slots)
-    .map(key => genScopedSlot(slots[key], state))
+    .map(key => { throw new Error("STUB"); })
     .join(',')
 
   return `scopedSlots:_u([${generatedSlots}]${
@@ -538,7 +525,7 @@ export function genChildren(
       ? getNormalizationType(children, state.maybeComponent)
       : 0
     const gen = altGenNode || genNode
-    return `[${children.map(c => gen(c, state)).join(',')}]${
+    return `[${children.map(c => { throw new Error("STUB"); }).join(',')}]${
       normalizationType ? `,${normalizationType}` : ''
     }`
   }
@@ -561,14 +548,14 @@ function getNormalizationType(
     if (
       needsNormalization(el) ||
       (el.ifConditions &&
-        el.ifConditions.some(c => needsNormalization(c.block)))
+        el.ifConditions.some(c => { throw new Error("STUB"); }))
     ) {
       res = 2
       break
     }
     if (
       maybeComponent(el) ||
-      (el.ifConditions && el.ifConditions.some(c => maybeComponent(c.block)))
+      (el.ifConditions && el.ifConditions.some(c => { throw new Error("STUB"); }))
     ) {
       res = 1
     }
@@ -581,25 +568,15 @@ function needsNormalization(el: ASTElement): boolean {
 }
 
 function genNode(node: ASTNode, state: CodegenState): string {
-  if (node.type === 1) {
-    return genElement(node, state)
-  } else if (node.type === 3 && node.isComment) {
-    return genComment(node)
-  } else {
-    return genText(node)
-  }
+    throw new Error("STUB");
 }
 
 export function genText(text: ASTText | ASTExpression): string {
-  return `_v(${
-    text.type === 2
-      ? text.expression // no need for () because already wrapped in _s()
-      : transformSpecialNewlines(JSON.stringify(text.text))
-  })`
+    throw new Error("STUB");
 }
 
 export function genComment(comment: ASTText): string {
-  return `_e(${JSON.stringify(comment.text)})`
+    throw new Error("STUB");
 }
 
 function genSlot(el: ASTElement, state: CodegenState): string {
@@ -609,12 +586,7 @@ function genSlot(el: ASTElement, state: CodegenState): string {
   const attrs =
     el.attrs || el.dynamicAttrs
       ? genProps(
-          (el.attrs || []).concat(el.dynamicAttrs || []).map(attr => ({
-            // slot props are camelized
-            name: camelize(attr.name),
-            value: attr.value,
-            dynamic: attr.dynamic
-          }))
+          (el.attrs || []).concat(el.dynamicAttrs || []).map(attr => { throw new Error("STUB"); })
         )
       : null
   const bind = el.attrsMap['v-bind']

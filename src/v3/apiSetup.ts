@@ -88,36 +88,17 @@ function createSetupContext(vm: Component): SetupContext {
   let exposeCalled = false
   return {
     get attrs() {
-      if (!vm._attrsProxy) {
-        const proxy = (vm._attrsProxy = {})
-        def(proxy, '_v_attr_proxy', true)
-        syncSetupProxy(proxy, vm.$attrs, emptyObject, vm, '$attrs')
-      }
-      return vm._attrsProxy
-    },
+          throw new Error("STUB");
+      },
     get listeners() {
-      if (!vm._listenersProxy) {
-        const proxy = (vm._listenersProxy = {})
-        syncSetupProxy(proxy, vm.$listeners, emptyObject, vm, '$listeners')
-      }
-      return vm._listenersProxy
+        throw new Error("STUB");
     },
     get slots() {
-      return initSlotsProxy(vm)
+        throw new Error("STUB");
     },
     emit: bind(vm.$emit, vm) as any,
     expose(exposed?: Record<string, any>) {
-      if (__DEV__) {
-        if (exposeCalled) {
-          warn(`expose() should be called only once per setup().`, vm)
-        }
-        exposeCalled = true
-      }
-      if (exposed) {
-        Object.keys(exposed).forEach(key =>
-          proxyWithRefUnwrap(vm, exposed, key)
-        )
-      }
+        throw new Error("STUB");
     }
   }
 }
@@ -185,7 +166,7 @@ export function syncSetupSlots(to: any, from: any) {
  * legacy VNode types
  */
 export function useSlots(): SetupContext['slots'] {
-  return getContext().slots
+    throw new Error("STUB");
 }
 
 /**
@@ -193,7 +174,7 @@ export function useSlots(): SetupContext['slots'] {
  * legacy VNode types
  */
 export function useAttrs(): SetupContext['attrs'] {
-  return getContext().attrs
+    throw new Error("STUB");
 }
 
 /**
@@ -202,15 +183,11 @@ export function useAttrs(): SetupContext['attrs'] {
  * legacy VNode types
  */
 export function useListeners(): SetupContext['listeners'] {
-  return getContext().listeners
+    throw new Error("STUB");
 }
 
 function getContext(): SetupContext {
-  if (__DEV__ && !currentInstance) {
-    warn(`useContext() called without active instance.`)
-  }
-  const vm = currentInstance!
-  return vm._setupContext || (vm._setupContext = createSetupContext(vm))
+    throw new Error("STUB");
 }
 
 /**
@@ -222,25 +199,5 @@ export function mergeDefaults(
   raw: string[] | Record<string, PropOptions>,
   defaults: Record<string, any>
 ): Record<string, PropOptions> {
-  const props = isArray(raw)
-    ? raw.reduce(
-        (normalized, p) => ((normalized[p] = {}), normalized),
-        {} as Record<string, PropOptions>
-      )
-    : raw
-  for (const key in defaults) {
-    const opt = props[key]
-    if (opt) {
-      if (isArray(opt) || isFunction(opt)) {
-        props[key] = { type: opt, default: defaults[key] }
-      } else {
-        opt.default = defaults[key]
-      }
-    } else if (opt === null) {
-      props[key] = { default: defaults[key] }
-    } else if (__DEV__) {
-      warn(`props default key "${key}" has no corresponding declaration.`)
-    }
-  }
-  return props
+    throw new Error("STUB");
 }

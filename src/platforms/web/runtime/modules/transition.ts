@@ -102,36 +102,13 @@ export function enter(vnode: VNodeWithData, toggleDisplay?: () => void) {
   const userWantsControl = getHookArgumentsLength(enterHook)
 
   const cb = (el._enterCb = once(() => {
-    if (expectsCSS) {
-      removeTransitionClass(el, toClass)
-      removeTransitionClass(el, activeClass)
-    }
-    // @ts-expect-error
-    if (cb.cancelled) {
-      if (expectsCSS) {
-        removeTransitionClass(el, startClass)
-      }
-      enterCancelledHook && enterCancelledHook(el)
-    } else {
-      afterEnterHook && afterEnterHook(el)
-    }
-    el._enterCb = null
+      throw new Error("STUB");
   }))
 
   if (!vnode.data.show) {
     // remove pending leave element on enter by injecting an insert hook
     mergeVNodeHook(vnode, 'insert', () => {
-      const parent = el.parentNode
-      const pendingNode =
-        parent && parent._pending && parent._pending[vnode.key!]
-      if (
-        pendingNode &&
-        pendingNode.tag === vnode.tag &&
-        pendingNode.elm._leaveCb
-      ) {
-        pendingNode.elm._leaveCb()
-      }
-      enterHook && enterHook(el, cb)
+        throw new Error("STUB");
     })
   }
 
@@ -141,18 +118,7 @@ export function enter(vnode: VNodeWithData, toggleDisplay?: () => void) {
     addTransitionClass(el, startClass)
     addTransitionClass(el, activeClass)
     nextFrame(() => {
-      removeTransitionClass(el, startClass)
-      // @ts-expect-error
-      if (!cb.cancelled) {
-        addTransitionClass(el, toClass)
-        if (!userWantsControl) {
-          if (isValidDuration(explicitEnterDuration)) {
-            setTimeout(cb, explicitEnterDuration)
-          } else {
-            whenTransitionEnds(el, type, cb)
-          }
-        }
-      }
+        throw new Error("STUB");
     })
   }
 
@@ -211,24 +177,7 @@ export function leave(vnode: VNodeWithData, rm: Function) {
   }
 
   const cb = (el._leaveCb = once(() => {
-    if (el.parentNode && el.parentNode._pending) {
-      el.parentNode._pending[vnode.key!] = null
-    }
-    if (expectsCSS) {
-      removeTransitionClass(el, leaveToClass)
-      removeTransitionClass(el, leaveActiveClass)
-    }
-    // @ts-expect-error
-    if (cb.cancelled) {
-      if (expectsCSS) {
-        removeTransitionClass(el, leaveClass)
-      }
-      leaveCancelled && leaveCancelled(el)
-    } else {
-      rm()
-      afterLeave && afterLeave(el)
-    }
-    el._leaveCb = null
+      throw new Error("STUB");
   }))
 
   if (delayLeave) {
@@ -253,18 +202,7 @@ export function leave(vnode: VNodeWithData, rm: Function) {
       addTransitionClass(el, leaveClass)
       addTransitionClass(el, leaveActiveClass)
       nextFrame(() => {
-        removeTransitionClass(el, leaveClass)
-        // @ts-expect-error
-        if (!cb.cancelled) {
-          addTransitionClass(el, leaveToClass)
-          if (!userWantsControl) {
-            if (isValidDuration(explicitLeaveDuration)) {
-              setTimeout(cb, explicitLeaveDuration)
-            } else {
-              whenTransitionEnds(el, type, cb)
-            }
-          }
-        }
+          throw new Error("STUB");
       })
     }
     leave && leave(el, cb)
@@ -319,9 +257,7 @@ function getHookArgumentsLength(fn: Function): boolean {
 }
 
 function _enter(_: any, vnode: VNodeWithData) {
-  if (vnode.data.show !== true) {
-    enter(vnode)
-  }
+    throw new Error("STUB");
 }
 
 export default inBrowser

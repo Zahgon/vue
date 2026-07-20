@@ -8,15 +8,12 @@ export default {
   create: updateDirectives,
   update: updateDirectives,
   destroy: function unbindDirectives(vnode: VNodeWithData) {
-    // @ts-expect-error emptyNode is not VNodeWithData
-    updateDirectives(vnode, emptyNode)
+      throw new Error("STUB");
   }
 }
 
 function updateDirectives(oldVnode: VNodeWithData, vnode: VNodeWithData) {
-  if (oldVnode.data.directives || vnode.data.directives) {
-    _update(oldVnode, vnode)
-  }
+    throw new Error("STUB");
 }
 
 function _update(oldVnode, vnode) {
@@ -67,9 +64,7 @@ function _update(oldVnode, vnode) {
 
   if (dirsWithPostpatch.length) {
     mergeVNodeHook(vnode, 'postpatch', () => {
-      for (let i = 0; i < dirsWithPostpatch.length; i++) {
-        callHook(dirsWithPostpatch[i], 'componentUpdated', vnode, oldVnode)
-      }
+        throw new Error("STUB");
     })
   }
 

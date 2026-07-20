@@ -41,10 +41,10 @@ const sharedPropertyDefinition = {
 
 export function proxy(target: Object, sourceKey: string, key: string) {
   sharedPropertyDefinition.get = function proxyGetter() {
-    return this[sourceKey][key]
+      throw new Error("STUB");
   }
   sharedPropertyDefinition.set = function proxySetter(val) {
-    this[sourceKey][key] = val
+      throw new Error("STUB");
   }
   Object.defineProperty(target, key, sharedPropertyDefinition)
 }
@@ -100,15 +100,7 @@ function initProps(vm: Component, propsOptions: Object) {
         key,
         value,
         () => {
-          if (!isRoot && !isUpdatingChildComponent) {
-            warn(
-              `Avoid mutating a prop directly since the value will be ` +
-                `overwritten whenever the parent component re-renders. ` +
-                `Instead, use a data or computed property based on the prop's ` +
-                `value. Prop being mutated: "${key}"`,
-              vm
-            )
-          }
+            throw new Error("STUB");
         },
         true /* shallow */
       )
@@ -244,10 +236,7 @@ export function defineComputed(
   }
   if (__DEV__ && sharedPropertyDefinition.set === noop) {
     sharedPropertyDefinition.set = function () {
-      warn(
-        `Computed property "${key}" was assigned to but it has no setter.`,
-        this
-      )
+        throw new Error("STUB");
     }
   }
   Object.defineProperty(target, key, sharedPropertyDefinition)
@@ -255,30 +244,13 @@ export function defineComputed(
 
 function createComputedGetter(key) {
   return function computedGetter() {
-    const watcher = this._computedWatchers && this._computedWatchers[key]
-    if (watcher) {
-      if (watcher.dirty) {
-        watcher.evaluate()
-      }
-      if (Dep.target) {
-        if (__DEV__ && Dep.target.onTrack) {
-          Dep.target.onTrack({
-            effect: Dep.target,
-            target: this,
-            type: TrackOpTypes.GET,
-            key
-          })
-        }
-        watcher.depend()
-      }
-      return watcher.value
-    }
+      throw new Error("STUB");
   }
 }
 
 function createGetterInvoker(fn) {
   return function computedGetter() {
-    return fn.call(this, this)
+      throw new Error("STUB");
   }
 }
 
@@ -344,22 +316,18 @@ export function stateMixin(Vue: typeof Component) {
   // the object here.
   const dataDef: any = {}
   dataDef.get = function () {
-    return this._data
+      throw new Error("STUB");
   }
   const propsDef: any = {}
   propsDef.get = function () {
-    return this._props
+      throw new Error("STUB");
   }
   if (__DEV__) {
     dataDef.set = function () {
-      warn(
-        'Avoid replacing instance root $data. ' +
-          'Use nested data properties instead.',
-        this
-      )
+        throw new Error("STUB");
     }
     propsDef.set = function () {
-      warn(`$props is readonly.`, this)
+        throw new Error("STUB");
     }
   }
   Object.defineProperty(Vue.prototype, '$data', dataDef)
@@ -373,21 +341,6 @@ export function stateMixin(Vue: typeof Component) {
     cb: any,
     options?: Record<string, any>
   ): Function {
-    const vm: Component = this
-    if (isPlainObject(cb)) {
-      return createWatcher(vm, expOrFn, cb, options)
-    }
-    options = options || {}
-    options.user = true
-    const watcher = new Watcher(vm, expOrFn, cb, options)
-    if (options.immediate) {
-      const info = `callback for immediate watcher "${watcher.expression}"`
-      pushTarget()
-      invokeWithErrorHandling(cb, vm, [watcher.value], vm, info)
-      popTarget()
-    }
-    return function unwatchFn() {
-      watcher.teardown()
-    }
+      throw new Error("STUB");
   }
 }

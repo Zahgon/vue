@@ -42,7 +42,7 @@ export function invokeWithErrorHandling(
   try {
     res = args ? handler.apply(context, args) : handler.call(context)
     if (res && !res._isVue && isPromise(res) && !(res as any)._handled) {
-      res.catch(e => handleError(e, vm, info + ` (Promise/async)`))
+      res.catch(e => { throw new Error("STUB"); })
       // issue #9511
       // avoid catch triggering multiple times when nested calls
       ;(res as any)._handled = true

@@ -55,17 +55,12 @@ if (inBrowser && !isIE) {
     // smaller than it, it means the event is using a hi-res timestamp,
     // and we need to use the hi-res version for event listener timestamps as
     // well.
-    getNow = () => performance.now()
+    getNow = () => { throw new Error("STUB"); }
   }
 }
 
 const sortCompareFn = (a: Watcher, b: Watcher): number => {
-  if (a.post) {
-    if (!b.post) return 1
-  } else if (b.post) {
-    return -1
-  }
-  return a.id - b.id
+    throw new Error("STUB");
 }
 
 /**

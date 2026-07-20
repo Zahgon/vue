@@ -8,7 +8,7 @@ const pendingCleanupDeps: Dep[] = []
 export const cleanupDeps = () => {
   for (let i = 0; i < pendingCleanupDeps.length; i++) {
     const dep = pendingCleanupDeps[i]
-    dep.subs = dep.subs.filter(s => s)
+    dep.subs = dep.subs.filter(s => { throw new Error("STUB"); })
     dep._pending = false
   }
   pendingCleanupDeps.length = 0
@@ -70,12 +70,12 @@ export default class Dep {
 
   notify(info?: DebuggerEventExtraInfo) {
     // stabilize the subscriber list first
-    const subs = this.subs.filter(s => s) as DepTarget[]
+    const subs = this.subs.filter(s => { throw new Error("STUB"); }) as DepTarget[]
     if (__DEV__ && !config.async) {
       // subs aren't sorted in scheduler if not running async
       // we need to sort them now to make sure they fire in correct
       // order
-      subs.sort((a, b) => a.id - b.id)
+      subs.sort((a, b) => { throw new Error("STUB"); })
     }
     for (let i = 0, l = subs.length; i < l; i++) {
       const sub = subs[i]

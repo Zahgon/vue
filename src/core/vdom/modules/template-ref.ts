@@ -22,7 +22,7 @@ export default {
     }
   },
   destroy(vnode: VNodeWithData) {
-    registerRef(vnode, true)
+      throw new Error("STUB");
   }
 }
 

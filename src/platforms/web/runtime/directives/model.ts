@@ -12,43 +12,14 @@ import { warn, isIE9, isIE, isEdge } from 'core/util/index'
 if (isIE9) {
   // http://www.matts411.com/post/internet-explorer-9-oninput/
   document.addEventListener('selectionchange', () => {
-    const el = document.activeElement
-    // @ts-expect-error
-    if (el && el.vmodel) {
-      trigger(el, 'input')
-    }
+      throw new Error("STUB");
   })
 }
 
 const directive = {
   inserted(el, binding, vnode, oldVnode) {
-    if (vnode.tag === 'select') {
-      // #6903
-      if (oldVnode.elm && !oldVnode.elm._vOptions) {
-        mergeVNodeHook(vnode, 'postpatch', () => {
-          directive.componentUpdated(el, binding, vnode)
-        })
-      } else {
-        setSelected(el, binding, vnode.context)
-      }
-      el._vOptions = [].map.call(el.options, getValue)
-    } else if (vnode.tag === 'textarea' || isTextInputType(el.type)) {
-      el._vModifiers = binding.modifiers
-      if (!binding.modifiers.lazy) {
-        el.addEventListener('compositionstart', onCompositionStart)
-        el.addEventListener('compositionend', onCompositionEnd)
-        // Safari < 10.2 & UIWebView doesn't fire compositionend when
-        // switching focus before confirming composition choice
-        // this also fixes the issue where some browsers e.g. iOS Chrome
-        // fires "change" instead of "input" on autocomplete.
-        el.addEventListener('change', onCompositionEnd)
-        /* istanbul ignore if */
-        if (isIE9) {
-          el.vmodel = true
-        }
-      }
-    }
-  },
+        throw new Error("STUB");
+    },
 
   componentUpdated(el, binding, vnode) {
     if (vnode.tag === 'select') {
@@ -59,11 +30,11 @@ const directive = {
       // option in the DOM.
       const prevOptions = el._vOptions
       const curOptions = (el._vOptions = [].map.call(el.options, getValue))
-      if (curOptions.some((o, i) => !looseEqual(o, prevOptions[i]))) {
+      if (curOptions.some((o, i) => { throw new Error("STUB"); })) {
         // trigger change event if
         // no matching option found for at least one value
         const needReset = el.multiple
-          ? binding.value.some(v => hasNoMatchingOption(v, curOptions))
+          ? binding.value.some(v => { throw new Error("STUB"); })
           : binding.value !== binding.oldValue &&
             hasNoMatchingOption(binding.value, curOptions)
         if (needReset) {
@@ -79,7 +50,7 @@ function setSelected(el, binding, vm) {
   /* istanbul ignore if */
   if (isIE || isEdge) {
     setTimeout(() => {
-      actuallySetSelected(el, binding, vm)
+        throw new Error("STUB");
     }, 0)
   }
 }
@@ -121,7 +92,7 @@ function actuallySetSelected(el, binding, vm) {
 }
 
 function hasNoMatchingOption(value, options) {
-  return options.every(o => !looseEqual(o, value))
+  return options.every(o => { throw new Error("STUB"); })
 }
 
 function getValue(option) {
@@ -129,14 +100,11 @@ function getValue(option) {
 }
 
 function onCompositionStart(e) {
-  e.target.composing = true
+    throw new Error("STUB");
 }
 
 function onCompositionEnd(e) {
-  // prevent triggering an input event for no reason
-  if (!e.target.composing) return
-  e.target.composing = false
-  trigger(e.target, 'input')
+    throw new Error("STUB");
 }
 
 function trigger(el, type) {

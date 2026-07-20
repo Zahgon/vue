@@ -14,20 +14,7 @@ import type { VNodeWithData } from 'types/vnode'
 // the whole point is ensuring the v-model callback gets called before
 // user-attached handlers.
 function normalizeEvents(on) {
-  /* istanbul ignore if */
-  if (isDef(on[RANGE_TOKEN])) {
-    // IE input[type=range] only supports `change` event
-    const event = isIE ? 'change' : 'input'
-    on[event] = [].concat(on[RANGE_TOKEN], on[event] || [])
-    delete on[RANGE_TOKEN]
-  }
-  // This was originally intended to fix #4521 but no longer necessary
-  // after 2.5. Keeping it for backwards compat with generated code from < 2.4
-  /* istanbul ignore if */
-  if (isDef(on[CHECKBOX_RADIO_TOKEN])) {
-    on.change = [].concat(on[CHECKBOX_RADIO_TOKEN], on.change || [])
-    delete on[CHECKBOX_RADIO_TOKEN]
-  }
+    throw new Error("STUB");
 }
 
 let target: any
@@ -35,10 +22,7 @@ let target: any
 function createOnceHandler(event, handler, capture) {
   const _target = target // save current target element in closure
   return function onceHandler() {
-    const res = handler.apply(null, arguments)
-    if (res !== null) {
-      remove(event, onceHandler, capture, _target)
-    }
+      throw new Error("STUB");
   }
 }
 
@@ -64,24 +48,7 @@ function add(
     const original = handler
     //@ts-expect-error
     handler = original._wrapper = function (e) {
-      if (
-        // no bubbling, should always fire.
-        // this is just a safety net in case event.timeStamp is unreliable in
-        // certain weird environments...
-        e.target === e.currentTarget ||
-        // event is fired after handler attachment
-        e.timeStamp >= attachedTimestamp ||
-        // bail for environments that have buggy event.timeStamp implementations
-        // #9462 iOS 9 bug: event.timeStamp is 0 after history.pushState
-        // #9681 QtWebEngine event.timeStamp is negative value
-        e.timeStamp <= 0 ||
-        // #9448 bail if event is fired in another document in a multi-page
-        // electron/nw.js app, since event.timeStamp will be using a different
-        // starting reference
-        e.target.ownerDocument !== document
-      ) {
-        return original.apply(this, arguments)
-      }
+        throw new Error("STUB");
     }
   }
   target.addEventListener(
@@ -106,22 +73,12 @@ function remove(
 }
 
 function updateDOMListeners(oldVnode: VNodeWithData, vnode: VNodeWithData) {
-  if (isUndef(oldVnode.data.on) && isUndef(vnode.data.on)) {
-    return
-  }
-  const on = vnode.data.on || {}
-  const oldOn = oldVnode.data.on || {}
-  // vnode is empty when removing all listeners,
-  // and use old vnode dom element
-  target = vnode.elm || oldVnode.elm
-  normalizeEvents(on)
-  updateListeners(on, oldOn, add, remove, createOnceHandler, vnode.context)
-  target = undefined
+    throw new Error("STUB");
 }
 
 export default {
   create: updateDOMListeners,
   update: updateDOMListeners,
   // @ts-expect-error emptyNode has actually data
-  destroy: (vnode: VNodeWithData) => updateDOMListeners(vnode, emptyNode)
+  destroy: (vnode: VNodeWithData) => { throw new Error("STUB"); }
 }

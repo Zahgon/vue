@@ -13,19 +13,8 @@ const normalizeEvent = cached(
     handler?: Function
     params?: Array<any>
   } => {
-    const passive = name.charAt(0) === '&'
-    name = passive ? name.slice(1) : name
-    const once = name.charAt(0) === '~' // Prefixed last, checked first
-    name = once ? name.slice(1) : name
-    const capture = name.charAt(0) === '!'
-    name = capture ? name.slice(1) : name
-    return {
-      name,
-      once,
-      capture,
-      passive
+        throw new Error("STUB");
     }
-  }
 )
 
 export function createFnInvoker(
@@ -33,28 +22,7 @@ export function createFnInvoker(
   vm?: Component
 ): Function {
   function invoker() {
-    const fns = invoker.fns
-    if (isArray(fns)) {
-      const cloned = fns.slice()
-      for (let i = 0; i < cloned.length; i++) {
-        invokeWithErrorHandling(
-          cloned[i],
-          null,
-          arguments as any,
-          vm,
-          `v-on handler`
-        )
-      }
-    } else {
-      // return handler return value for single handlers
-      return invokeWithErrorHandling(
-        fns,
-        null,
-        arguments as any,
-        vm,
-        `v-on handler`
-      )
-    }
+      throw new Error("STUB");
   }
   invoker.fns = fns
   return invoker

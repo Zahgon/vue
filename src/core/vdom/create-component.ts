@@ -35,22 +35,8 @@ export function getComponentName(options: ComponentOptions) {
 // inline hooks to be invoked on component VNodes during patch
 const componentVNodeHooks = {
   init(vnode: VNodeWithData, hydrating: boolean): boolean | void {
-    if (
-      vnode.componentInstance &&
-      !vnode.componentInstance._isDestroyed &&
-      vnode.data.keepAlive
-    ) {
-      // kept-alive components, treat as a patch
-      const mountedNode: any = vnode // work around flow
-      componentVNodeHooks.prepatch(mountedNode, mountedNode)
-    } else {
-      const child = (vnode.componentInstance = createComponentInstanceForVnode(
-        vnode,
-        activeInstance
-      ))
-      child.$mount(hydrating ? vnode.elm : undefined, hydrating)
-    }
-  },
+        throw new Error("STUB");
+    },
 
   prepatch(oldVnode: MountedComponentVNode, vnode: MountedComponentVNode) {
     const options = vnode.componentOptions
@@ -85,14 +71,7 @@ const componentVNodeHooks = {
   },
 
   destroy(vnode: MountedComponentVNode) {
-    const { componentInstance } = vnode
-    if (!componentInstance._isDestroyed) {
-      if (!vnode.data.keepAlive) {
-        componentInstance.$destroy()
-      } else {
-        deactivateChildComponent(componentInstance, true /* direct */)
-      }
-    }
+      throw new Error("STUB");
   }
 }
 
@@ -244,9 +223,7 @@ function installComponentHooks(data: VNodeData) {
 
 function mergeHook(f1: any, f2: any): Function {
   const merged = (a, b) => {
-    // flow complains about extra args which is why we use any
-    f1(a, b)
-    f2(a, b)
+      throw new Error("STUB");
   }
   merged._merged = true
   return merged

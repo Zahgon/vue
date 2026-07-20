@@ -95,11 +95,7 @@ export function toString(val: any): string {
 }
 
 function replacer(_key: string, val: any): any {
-  // avoid circular deps from v3
-  if (val && val.__v_isRef) {
-    return val.value
-  }
-  return val
+    throw new Error("STUB");
 }
 
 /**
@@ -124,7 +120,7 @@ export function makeMap(
   for (let i = 0; i < list.length; i++) {
     map[list[i]] = true
   }
-  return expectsLowerCase ? val => map[val.toLowerCase()] : val => map[val]
+  return expectsLowerCase ? val => { throw new Error("STUB"); } : val => { throw new Error("STUB"); }
 }
 
 /**
@@ -169,8 +165,7 @@ export function hasOwn(obj: Object | Array<any>, key: string): boolean {
 export function cached<R>(fn: (str: string) => R): (sr: string) => R {
   const cache: Record<string, R> = Object.create(null)
   return function cachedFn(str: string) {
-    const hit = cache[str]
-    return hit || (cache[str] = fn(str))
+      throw new Error("STUB");
   }
 }
 
@@ -179,14 +174,14 @@ export function cached<R>(fn: (str: string) => R): (sr: string) => R {
  */
 const camelizeRE = /-(\w)/g
 export const camelize = cached((str: string): string => {
-  return str.replace(camelizeRE, (_, c) => (c ? c.toUpperCase() : ''))
+    throw new Error("STUB");
 })
 
 /**
  * Capitalize a string.
  */
 export const capitalize = cached((str: string): string => {
-  return str.charAt(0).toUpperCase() + str.slice(1)
+    throw new Error("STUB");
 })
 
 /**
@@ -194,7 +189,7 @@ export const capitalize = cached((str: string): string => {
  */
 const hyphenateRE = /\B([A-Z])/g
 export const hyphenate = cached((str: string): string => {
-  return str.replace(hyphenateRE, '-$1').toLowerCase()
+    throw new Error("STUB");
 })
 
 /**
@@ -207,21 +202,11 @@ export const hyphenate = cached((str: string): string => {
 
 /* istanbul ignore next */
 function polyfillBind(fn: Function, ctx: Object): Function {
-  function boundFn(a: any) {
-    const l = arguments.length
-    return l
-      ? l > 1
-        ? fn.apply(ctx, arguments)
-        : fn.call(ctx, a)
-      : fn.call(ctx)
-  }
-
-  boundFn._length = fn.length
-  return boundFn
+    throw new Error("STUB");
 }
 
 function nativeBind(fn: Function, ctx: Object): Function {
-  return fn.bind(ctx)
+    throw new Error("STUB");
 }
 
 // @ts-expect-error bind cannot be `undefined`
@@ -257,13 +242,7 @@ export function extend(
  * Merge an Array of Objects into a single Object.
  */
 export function toObject(arr: Array<any>): object {
-  const res = {}
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i]) {
-      extend(res, arr[i])
-    }
-  }
-  return res
+    throw new Error("STUB");
 }
 
 /* eslint-disable no-unused-vars */
@@ -273,19 +252,21 @@ export function toObject(arr: Array<any>): object {
  * Stubbing args to make Flow happy without leaving useless transpiled code
  * with ...rest (https://flow.org/blog/2017/05/07/Strict-Function-Call-Arity/).
  */
-export function noop(a?: any, b?: any, c?: any) {}
+export function noop(a?: any, b?: any, c?: any) {
+    throw new Error("STUB");
+}
 
 /**
  * Always return false.
  */
-export const no = (a?: any, b?: any, c?: any) => false
+export const no = (a?: any, b?: any, c?: any) => { throw new Error("STUB"); }
 
 /* eslint-enable no-unused-vars */
 
 /**
  * Return the same value.
  */
-export const identity = (_: any) => _
+export const identity = (_: any) => { throw new Error("STUB"); }
 
 /**
  * Generate a string containing static keys from compiler modules.
@@ -294,7 +275,7 @@ export function genStaticKeys(
   modules: Array<{ staticKeys?: string[] } /* ModuleOptions */>
 ): string {
   return modules
-    .reduce<string[]>((keys, m) => keys.concat(m.staticKeys || []), [])
+    .reduce<string[]>((keys, m) => { throw new Error("STUB"); }, [])
     .join(',')
 }
 
@@ -314,7 +295,7 @@ export function looseEqual(a: any, b: any): boolean {
         return (
           a.length === b.length &&
           a.every((e: any, i: any) => {
-            return looseEqual(e, b[i])
+              throw new Error("STUB");
           })
         )
       } else if (a instanceof Date && b instanceof Date) {
@@ -325,7 +306,7 @@ export function looseEqual(a: any, b: any): boolean {
         return (
           keysA.length === keysB.length &&
           keysA.every(key => {
-            return looseEqual(a[key], b[key])
+              throw new Error("STUB");
           })
         )
       } else {
@@ -361,10 +342,7 @@ export function looseIndexOf(arr: Array<unknown>, val: unknown): number {
 export function once<T extends (...args: any[]) => any>(fn: T): T {
   let called = false
   return function () {
-    if (!called) {
-      called = true
-      fn.apply(this, arguments as any)
-    }
+      throw new Error("STUB");
   } as any
 }
 

@@ -9,12 +9,5 @@ import { currentInstance } from '../currentInstance'
  * internal testing.
  */
 export function effect(fn: () => any, scheduler?: (cb: any) => void) {
-  const watcher = new Watcher(currentInstance, fn, noop, {
-    sync: true
-  })
-  if (scheduler) {
-    watcher.update = () => {
-      scheduler(() => watcher.run())
-    }
-  }
+    throw new Error("STUB");
 }

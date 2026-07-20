@@ -32,19 +32,7 @@ export function initInjections(vm: Component) {
   if (result) {
     toggleObserving(false)
     Object.keys(result).forEach(key => {
-      /* istanbul ignore else */
-      if (__DEV__) {
-        defineReactive(vm, key, result[key], () => {
-          warn(
-            `Avoid mutating an injected value directly since the changes will be ` +
-              `overwritten whenever the provided component re-renders. ` +
-              `injection being mutated: "${key}"`,
-            vm
-          )
-        })
-      } else {
-        defineReactive(vm, key, result[key])
-      }
+        throw new Error("STUB");
     })
     toggleObserving(true)
   }

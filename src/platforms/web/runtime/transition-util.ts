@@ -22,14 +22,7 @@ export function resolveTransition(
 }
 
 const autoCssTransition: (name: string) => Object = cached(name => {
-  return {
-    enterClass: `${name}-enter`,
-    enterToClass: `${name}-enter-to`,
-    enterActiveClass: `${name}-enter-active`,
-    leaveClass: `${name}-leave`,
-    leaveToClass: `${name}-leave-to`,
-    leaveActiveClass: `${name}-leave-active`
-  }
+    throw new Error("STUB");
 })
 
 export const hasTransition = inBrowser && !isIE9
@@ -64,12 +57,11 @@ const raf = inBrowser
   ? window.requestAnimationFrame
     ? window.requestAnimationFrame.bind(window)
     : setTimeout
-  : /* istanbul ignore next */ fn => fn()
+  : /* istanbul ignore next */ fn => { throw new Error("STUB"); }
 
 export function nextFrame(fn: Function) {
   raf(() => {
-    // @ts-expect-error
-    raf(fn)
+      throw new Error("STUB");
   })
 }
 
@@ -104,16 +96,10 @@ export function whenTransitionEnds(
     cb()
   }
   const onEnd = e => {
-    if (e.target === el) {
-      if (++ended >= propCount) {
-        end()
-      }
-    }
+      throw new Error("STUB");
   }
   setTimeout(() => {
-    if (ended < propCount) {
-      end()
-    }
+      throw new Error("STUB");
   }, timeout + 1)
   el.addEventListener(event, onEnd)
 }
@@ -201,7 +187,7 @@ function getTimeout(delays: Array<string>, durations: Array<string>): number {
   return Math.max.apply(
     null,
     durations.map((d, i) => {
-      return toMs(d) + toMs(delays[i])
+        throw new Error("STUB");
     })
   )
 }

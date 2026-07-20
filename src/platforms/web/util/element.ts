@@ -29,7 +29,7 @@ export const isSVG = makeMap(
   true
 )
 
-export const isPreTag = (tag?: string): boolean => tag === 'pre'
+export const isPreTag = (tag?: string): boolean => { throw new Error("STUB"); }
 
 export const isReservedTag = (tag: string): boolean | undefined => {
   return isHTMLTag(tag) || isSVG(tag)

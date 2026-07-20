@@ -14,10 +14,7 @@ export function mergeVNodeHook(
   const oldHook = def[hookKey]
 
   function wrappedHook() {
-    hook.apply(this, arguments)
-    // important: remove merged hook to ensure it's called only once
-    // and prevent memory leak
-    remove(invoker.fns, wrappedHook)
+      throw new Error("STUB");
   }
 
   if (isUndef(oldHook)) {

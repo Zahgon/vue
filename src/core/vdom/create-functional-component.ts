@@ -25,74 +25,7 @@ export function FunctionalRenderContext(
   parent: Component,
   Ctor: typeof Component
 ) {
-  const options = Ctor.options
-  // ensure the createElement function in functional components
-  // gets a unique context - this is necessary for correct named slot check
-  let contextVm
-  if (hasOwn(parent, '_uid')) {
-    contextVm = Object.create(parent)
-    contextVm._original = parent
-  } else {
-    // the context vm passed in is a functional context as well.
-    // in this case we want to make sure we are able to get a hold to the
-    // real context instance.
-    contextVm = parent
-    // @ts-ignore
-    parent = parent._original
-  }
-  const isCompiled = isTrue(options._compiled)
-  const needNormalization = !isCompiled
-
-  this.data = data
-  this.props = props
-  this.children = children
-  this.parent = parent
-  this.listeners = data.on || emptyObject
-  this.injections = resolveInject(options.inject, parent)
-  this.slots = () => {
-    if (!this.$slots) {
-      normalizeScopedSlots(
-        parent,
-        data.scopedSlots,
-        (this.$slots = resolveSlots(children, parent))
-      )
-    }
-    return this.$slots
-  }
-
-  Object.defineProperty(this, 'scopedSlots', {
-    enumerable: true,
-    get() {
-      return normalizeScopedSlots(parent, data.scopedSlots, this.slots())
-    }
-  } as any)
-
-  // support for compiled functional template
-  if (isCompiled) {
-    // exposing $options for renderStatic()
-    this.$options = options
-    // pre-resolve slots for renderSlot()
-    this.$slots = this.slots()
-    this.$scopedSlots = normalizeScopedSlots(
-      parent,
-      data.scopedSlots,
-      this.$slots
-    )
-  }
-
-  if (options._scopeId) {
-    this._c = (a, b, c, d) => {
-      const vnode = createElement(contextVm, a, b, c, d, needNormalization)
-      if (vnode && !isArray(vnode)) {
-        vnode.fnScopeId = options._scopeId
-        vnode.fnContext = parent
-      }
-      return vnode
-    }
-  } else {
-    this._c = (a, b, c, d) =>
-      createElement(contextVm, a, b, c, d, needNormalization)
-  }
+    throw new Error("STUB");
 }
 
 installRenderHelpers(FunctionalRenderContext.prototype)

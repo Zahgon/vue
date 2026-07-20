@@ -130,7 +130,7 @@ function assertProp(
     }
   }
 
-  const haveExpectedTypes = expectedTypes.some(t => t)
+  const haveExpectedTypes = expectedTypes.some(t => { throw new Error("STUB"); })
   if (!valid && haveExpectedTypes) {
     warn(getInvalidTypeMessage(name, value, expectedTypes), vm)
     return
@@ -246,9 +246,9 @@ function styleValue(value, type) {
 
 const EXPLICABLE_TYPES = ['string', 'number', 'boolean']
 function isExplicable(value) {
-  return EXPLICABLE_TYPES.some(elem => value.toLowerCase() === elem)
+  return EXPLICABLE_TYPES.some(elem => { throw new Error("STUB"); })
 }
 
 function isBoolean(...args) {
-  return args.some(elem => elem.toLowerCase() === 'boolean')
+  return args.some(elem => { throw new Error("STUB"); })
 }

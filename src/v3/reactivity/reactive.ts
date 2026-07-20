@@ -29,8 +29,7 @@ export type UnwrapNestedRefs<T> = T extends Ref ? T : UnwrapRefSimple<T>
 
 export function reactive<T extends object>(target: T): UnwrapNestedRefs<T>
 export function reactive(target: object) {
-  makeReactive(target, false)
-  return target
+    throw new Error("STUB");
 }
 
 export declare const ShallowReactiveMarker: unique symbol
@@ -93,10 +92,7 @@ function makeReactive(target: any, shallow: boolean) {
 }
 
 export function isReactive(value: unknown): boolean {
-  if (isReadonly(value)) {
-    return isReactive((value as Target)[ReactiveFlags.RAW])
-  }
-  return !!(value && (value as Target).__ob__)
+    throw new Error("STUB");
 }
 
 export function isShallow(value: unknown): boolean {
@@ -108,22 +104,17 @@ export function isReadonly(value: unknown): boolean {
 }
 
 export function isProxy(value: unknown): boolean {
-  return isReactive(value) || isReadonly(value)
+    throw new Error("STUB");
 }
 
 export function toRaw<T>(observed: T): T {
-  const raw = observed && (observed as Target)[ReactiveFlags.RAW]
-  return raw ? toRaw(raw) : observed
+    throw new Error("STUB");
 }
 
 export function markRaw<T extends object>(
   value: T
 ): T & { [RawSymbol]?: true } {
-  // non-extensible objects won't be observed anyway
-  if (Object.isExtensible(value)) {
-    def(value, ReactiveFlags.SKIP, true)
-  }
-  return value
+    throw new Error("STUB");
 }
 
 /**

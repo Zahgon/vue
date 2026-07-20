@@ -10,12 +10,7 @@ const callbacks: Array<Function> = []
 let pending = false
 
 function flushCallbacks() {
-  pending = false
-  const copies = callbacks.slice(0)
-  callbacks.length = 0
-  for (let i = 0; i < copies.length; i++) {
-    copies[i]()
-  }
+    throw new Error("STUB");
 }
 
 // Here we have async deferring wrappers using microtasks.
@@ -41,13 +36,7 @@ let timerFunc
 if (typeof Promise !== 'undefined' && isNative(Promise)) {
   const p = Promise.resolve()
   timerFunc = () => {
-    p.then(flushCallbacks)
-    // In problematic UIWebViews, Promise.then doesn't completely break, but
-    // it can get stuck in a weird state where callbacks are pushed into the
-    // microtask queue but the queue isn't being flushed, until the browser
-    // needs to do some other work, e.g. handle a timer. Therefore we can
-    // "force" the microtask queue to be flushed by adding an empty timer.
-    if (isIOS) setTimeout(noop)
+      throw new Error("STUB");
   }
   isUsingMicroTask = true
 } else if (
@@ -67,8 +56,7 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
     characterData: true
   })
   timerFunc = () => {
-    counter = (counter + 1) % 2
-    textNode.data = String(counter)
+      throw new Error("STUB");
   }
   isUsingMicroTask = true
 } else if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
@@ -76,12 +64,12 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
   // Technically it leverages the (macro) task queue,
   // but it is still a better choice than setTimeout.
   timerFunc = () => {
-    setImmediate(flushCallbacks)
+      throw new Error("STUB");
   }
 } else {
   // Fallback to setTimeout.
   timerFunc = () => {
-    setTimeout(flushCallbacks, 0)
+      throw new Error("STUB");
   }
 }
 
@@ -94,15 +82,7 @@ export function nextTick<T>(cb: (this: T, ...args: any[]) => any, ctx: T): void
 export function nextTick(cb?: (...args: any[]) => any, ctx?: object) {
   let _resolve
   callbacks.push(() => {
-    if (cb) {
-      try {
-        cb.call(ctx)
-      } catch (e: any) {
-        handleError(e, ctx, 'nextTick')
-      }
-    } else if (_resolve) {
-      _resolve(ctx)
-    }
+      throw new Error("STUB");
   })
   if (!pending) {
     pending = true
@@ -111,7 +91,7 @@ export function nextTick(cb?: (...args: any[]) => any, ctx?: object) {
   // $flow-disable-line
   if (!cb && typeof Promise !== 'undefined') {
     return new Promise(resolve => {
-      _resolve = resolve
+        throw new Error("STUB");
     })
   }
 }

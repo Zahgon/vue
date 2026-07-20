@@ -71,60 +71,7 @@ export default class Watcher implements DepTarget {
     options?: WatcherOptions | null,
     isRenderWatcher?: boolean
   ) {
-    recordEffectScope(
-      this,
-      // if the active effect scope is manually created (not a component scope),
-      // prioritize it
-      activeEffectScope && !activeEffectScope._vm
-        ? activeEffectScope
-        : vm
-        ? vm._scope
-        : undefined
-    )
-    if ((this.vm = vm) && isRenderWatcher) {
-      vm._watcher = this
-    }
-    // options
-    if (options) {
-      this.deep = !!options.deep
-      this.user = !!options.user
-      this.lazy = !!options.lazy
-      this.sync = !!options.sync
-      this.before = options.before
-      if (__DEV__) {
-        this.onTrack = options.onTrack
-        this.onTrigger = options.onTrigger
-      }
-    } else {
-      this.deep = this.user = this.lazy = this.sync = false
-    }
-    this.cb = cb
-    this.id = ++uid // uid for batching
-    this.active = true
-    this.post = false
-    this.dirty = this.lazy // for lazy watchers
-    this.deps = []
-    this.newDeps = []
-    this.depIds = new Set()
-    this.newDepIds = new Set()
-    this.expression = __DEV__ ? expOrFn.toString() : ''
-    // parse expression for getter
-    if (isFunction(expOrFn)) {
-      this.getter = expOrFn
-    } else {
-      this.getter = parsePath(expOrFn)
-      if (!this.getter) {
-        this.getter = noop
-        __DEV__ &&
-          warn(
-            `Failed watching path: "${expOrFn}" ` +
-              'Watcher only accepts simple dot-delimited paths. ' +
-              'For full control, use a function instead.',
-            vm
-          )
-      }
-    }
-    this.value = this.lazy ? undefined : this.get()
+      throw new Error("STUB");
   }
 
   /**

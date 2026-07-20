@@ -28,7 +28,7 @@ export function setActiveInstance(vm: Component) {
   const prevActiveInstance = activeInstance
   activeInstance = vm
   return () => {
-    activeInstance = prevActiveInstance
+      throw new Error("STUB");
   }
 }
 
@@ -61,86 +61,15 @@ export function initLifecycle(vm: Component) {
 
 export function lifecycleMixin(Vue: typeof Component) {
   Vue.prototype._update = function (vnode: VNode, hydrating?: boolean) {
-    const vm: Component = this
-    const prevEl = vm.$el
-    const prevVnode = vm._vnode
-    const restoreActiveInstance = setActiveInstance(vm)
-    vm._vnode = vnode
-    // Vue.prototype.__patch__ is injected in entry points
-    // based on the rendering backend used.
-    if (!prevVnode) {
-      // initial render
-      vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */)
-    } else {
-      // updates
-      vm.$el = vm.__patch__(prevVnode, vnode)
-    }
-    restoreActiveInstance()
-    // update __vue__ reference
-    if (prevEl) {
-      prevEl.__vue__ = null
-    }
-    if (vm.$el) {
-      vm.$el.__vue__ = vm
-    }
-    // if parent is an HOC, update its $el as well
-    let wrapper: Component | undefined = vm
-    while (
-      wrapper &&
-      wrapper.$vnode &&
-      wrapper.$parent &&
-      wrapper.$vnode === wrapper.$parent._vnode
-    ) {
-      wrapper.$parent.$el = wrapper.$el
-      wrapper = wrapper.$parent
-    }
-    // updated hook is called by the scheduler to ensure that children are
-    // updated in a parent's updated hook.
+      throw new Error("STUB");
   }
 
   Vue.prototype.$forceUpdate = function () {
-    const vm: Component = this
-    if (vm._watcher) {
-      vm._watcher.update()
-    }
+      throw new Error("STUB");
   }
 
   Vue.prototype.$destroy = function () {
-    const vm: Component = this
-    if (vm._isBeingDestroyed) {
-      return
-    }
-    callHook(vm, 'beforeDestroy')
-    vm._isBeingDestroyed = true
-    // remove self from parent
-    const parent = vm.$parent
-    if (parent && !parent._isBeingDestroyed && !vm.$options.abstract) {
-      remove(parent.$children, vm)
-    }
-    // teardown scope. this includes both the render watcher and other
-    // watchers created
-    vm._scope.stop()
-    // remove reference from data ob
-    // frozen object may not have observer.
-    if (vm._data.__ob__) {
-      vm._data.__ob__.vmCount--
-    }
-    // call the last hook...
-    vm._isDestroyed = true
-    // invoke destroy hooks on current rendered tree
-    vm.__patch__(vm._vnode, null)
-    // fire destroyed hook
-    callHook(vm, 'destroyed')
-    // turn off all instance listeners.
-    vm.$off()
-    // remove __vue__ reference
-    if (vm.$el) {
-      vm.$el.__vue__ = null
-    }
-    // release circular reference (#6759)
-    if (vm.$vnode) {
-      vm.$vnode.parent = null
-    }
+      throw new Error("STUB");
   }
 }
 
@@ -180,24 +109,11 @@ export function mountComponent(
   /* istanbul ignore if */
   if (__DEV__ && config.performance && mark) {
     updateComponent = () => {
-      const name = vm._name
-      const id = vm._uid
-      const startTag = `vue-perf-start:${id}`
-      const endTag = `vue-perf-end:${id}`
-
-      mark(startTag)
-      const vnode = vm._render()
-      mark(endTag)
-      measure(`vue ${name} render`, startTag, endTag)
-
-      mark(startTag)
-      vm._update(vnode, hydrating)
-      mark(endTag)
-      measure(`vue ${name} patch`, startTag, endTag)
+        throw new Error("STUB");
     }
   } else {
     updateComponent = () => {
-      vm._update(vm._render(), hydrating)
+        throw new Error("STUB");
     }
   }
 
@@ -210,8 +126,8 @@ export function mountComponent(
   }
 
   if (__DEV__) {
-    watcherOptions.onTrack = e => callHook(vm, 'renderTracked', [e])
-    watcherOptions.onTrigger = e => callHook(vm, 'renderTriggered', [e])
+    watcherOptions.onTrack = e => { throw new Error("STUB"); }
+    watcherOptions.onTrigger = e => { throw new Error("STUB"); }
   }
 
   // we set this to vm._watcher inside the watcher's constructor

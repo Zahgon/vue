@@ -37,13 +37,7 @@ export class EffectScope {
   private index: number | undefined
 
   constructor(public detached = false) {
-    this.parent = activeEffectScope
-    if (!detached && activeEffectScope) {
-      this.index =
-        (activeEffectScope.scopes || (activeEffectScope.scopes = [])).push(
-          this
-        ) - 1
-    }
+      throw new Error("STUB");
   }
 
   run<T>(fn: () => T): T | undefined {
@@ -106,7 +100,7 @@ export class EffectScope {
 }
 
 export function effectScope(detached?: boolean) {
-  return new EffectScope(detached)
+    throw new Error("STUB");
 }
 
 /**
@@ -116,9 +110,7 @@ export function recordEffectScope(
   effect: Watcher,
   scope: EffectScope | undefined = activeEffectScope
 ) {
-  if (scope && scope.active) {
-    scope.effects.push(effect)
-  }
+    throw new Error("STUB");
 }
 
 export function getCurrentScope() {
@@ -126,12 +118,5 @@ export function getCurrentScope() {
 }
 
 export function onScopeDispose(fn: () => void) {
-  if (activeEffectScope) {
-    activeEffectScope.cleanups.push(fn)
-  } else if (__DEV__) {
-    warn(
-      `onScopeDispose() is called when there is no active effect scope` +
-        ` to be associated with.`
-    )
-  }
+    throw new Error("STUB");
 }

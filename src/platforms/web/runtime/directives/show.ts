@@ -19,7 +19,7 @@ export default {
     if (value && transition) {
       vnode.data.show = true
       enter(vnode, () => {
-        el.style.display = originalDisplay
+          throw new Error("STUB");
       })
     } else {
       el.style.display = value ? originalDisplay : 'none'
@@ -35,11 +35,11 @@ export default {
       vnode.data.show = true
       if (value) {
         enter(vnode, () => {
-          el.style.display = el.__vOriginalDisplay
+            throw new Error("STUB");
         })
       } else {
         leave(vnode, () => {
-          el.style.display = 'none'
+            throw new Error("STUB");
         })
       }
     } else {
@@ -54,8 +54,6 @@ export default {
     oldVnode: VNodeWithData,
     isDestroy: boolean
   ) {
-    if (!isDestroy) {
-      el.style.display = el.__vOriginalDisplay
-    }
+      throw new Error("STUB");
   }
 }

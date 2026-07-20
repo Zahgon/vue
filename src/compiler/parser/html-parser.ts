@@ -52,7 +52,7 @@ const shouldIgnoreFirstNewline = (tag, html) =>
 
 function decodeAttr(value, shouldDecodeNewlines) {
   const re = shouldDecodeNewlines ? encodedAttrWithNewLines : encodedAttr
-  return value.replace(re, match => decodingMap[match])
+  return value.replace(re, match => { throw new Error("STUB"); })
 }
 
 export interface HTMLParserOptions extends CompilerOptions {
@@ -174,19 +174,7 @@ export function parseHTML(html, options: HTMLParserOptions) {
           'i'
         ))
       const rest = html.replace(reStackedTag, function (all, text, endTag) {
-        endTagLength = endTag.length
-        if (!isPlainTextElement(stackedTag) && stackedTag !== 'noscript') {
-          text = text
-            .replace(/<!\--([\s\S]*?)-->/g, '$1') // #7298
-            .replace(/<!\[CDATA\[([\s\S]*?)]]>/g, '$1')
-        }
-        if (shouldIgnoreFirstNewline(stackedTag, text)) {
-          text = text.slice(1)
-        }
-        if (options.chars) {
-          options.chars(text)
-        }
-        return ''
+          throw new Error("STUB");
       })
       index += html.length - rest.length
       html = rest

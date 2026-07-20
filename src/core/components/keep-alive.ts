@@ -14,22 +14,14 @@ type CacheEntry = {
 type CacheEntryMap = Record<string, CacheEntry | null>
 
 function _getComponentName(opts?: VNodeComponentOptions): string | null {
-  return opts && (getComponentName(opts.Ctor.options as any) || opts.tag)
+    throw new Error("STUB");
 }
 
 function matches(
   pattern: string | RegExp | Array<string>,
   name: string
 ): boolean {
-  if (isArray(pattern)) {
-    return pattern.indexOf(name) > -1
-  } else if (typeof pattern === 'string') {
-    return pattern.split(',').indexOf(name) > -1
-  } else if (isRegExp(pattern)) {
-    return pattern.test(name)
-  }
-  /* istanbul ignore next */
-  return false
+    throw new Error("STUB");
 }
 
 function pruneCache(
@@ -41,17 +33,7 @@ function pruneCache(
   },
   filter: Function
 ) {
-  const { cache, keys, _vnode, $vnode } = keepAliveInstance
-  for (const key in cache) {
-    const entry = cache[key]
-    if (entry) {
-      const name = entry.name
-      if (name && !filter(name)) {
-        pruneCacheEntry(cache, key, keys, _vnode)
-      }
-    }
-  }
-  $vnode.componentOptions!.children = undefined
+    throw new Error("STUB");
 }
 
 function pruneCacheEntry(
@@ -60,13 +42,7 @@ function pruneCacheEntry(
   keys: Array<string>,
   current?: VNode
 ) {
-  const entry = cache[key]
-  if (entry && (!current || entry.tag !== current.tag)) {
-    // @ts-expect-error can be undefined
-    entry.componentInstance.$destroy()
-  }
-  cache[key] = null
-  remove(keys, key)
+    throw new Error("STUB");
 }
 
 const patternTypes: Array<Function> = [String, RegExp, Array]
@@ -84,88 +60,27 @@ export default {
 
   methods: {
     cacheVNode() {
-      const { cache, keys, vnodeToCache, keyToCache } = this
-      if (vnodeToCache) {
-        const { tag, componentInstance, componentOptions } = vnodeToCache
-        cache[keyToCache] = {
-          name: _getComponentName(componentOptions),
-          tag,
-          componentInstance
-        }
-        keys.push(keyToCache)
-        // prune oldest entry
-        if (this.max && keys.length > parseInt(this.max)) {
-          pruneCacheEntry(cache, keys[0], keys, this._vnode)
-        }
-        this.vnodeToCache = null
+          throw new Error("STUB");
       }
-    }
   },
 
   created() {
-    this.cache = Object.create(null)
-    this.keys = []
+      throw new Error("STUB");
   },
 
   destroyed() {
-    for (const key in this.cache) {
-      pruneCacheEntry(this.cache, key, this.keys)
-    }
+      throw new Error("STUB");
   },
 
   mounted() {
-    this.cacheVNode()
-    this.$watch('include', val => {
-      pruneCache(this, name => matches(val, name))
-    })
-    this.$watch('exclude', val => {
-      pruneCache(this, name => !matches(val, name))
-    })
+      throw new Error("STUB");
   },
 
   updated() {
-    this.cacheVNode()
+      throw new Error("STUB");
   },
 
   render() {
-    const slot = this.$slots.default
-    const vnode = getFirstComponentChild(slot)
-    const componentOptions = vnode && vnode.componentOptions
-    if (componentOptions) {
-      // check pattern
-      const name = _getComponentName(componentOptions)
-      const { include, exclude } = this
-      if (
-        // not included
-        (include && (!name || !matches(include, name))) ||
-        // excluded
-        (exclude && name && matches(exclude, name))
-      ) {
-        return vnode
-      }
-
-      const { cache, keys } = this
-      const key =
-        vnode.key == null
-          ? // same constructor may get registered as different local components
-            // so cid alone is not enough (#3269)
-            componentOptions.Ctor.cid +
-            (componentOptions.tag ? `::${componentOptions.tag}` : '')
-          : vnode.key
-      if (cache[key]) {
-        vnode.componentInstance = cache[key].componentInstance
-        // make current key freshest
-        remove(keys, key)
-        keys.push(key)
-      } else {
-        // delay setting the cache until update
-        this.vnodeToCache = vnode
-        this.keyToCache = key
-      }
-
-      // @ts-expect-error can vnode.data can be undefined
-      vnode.data.keepAlive = true
-    }
-    return vnode || (slot && slot[0])
+      throw new Error("STUB");
   }
 }

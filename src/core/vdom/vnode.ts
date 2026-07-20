@@ -73,7 +73,7 @@ export default class VNode {
   // DEPRECATED: alias for componentInstance for backwards compat.
   /* istanbul ignore next */
   get child(): Component | void {
-    return this.componentInstance
+      throw new Error("STUB");
   }
 }
 

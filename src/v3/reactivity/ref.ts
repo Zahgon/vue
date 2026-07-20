@@ -44,7 +44,7 @@ export function ref<T extends Ref>(value: T): T
 export function ref<T>(value: T): Ref<UnwrapRef<T>>
 export function ref<T = any>(): Ref<T | undefined>
 export function ref(value?: unknown) {
-  return createRef(value, false)
+    throw new Error("STUB");
 }
 
 declare const ShallowRefMarker: unique symbol
@@ -56,56 +56,25 @@ export function shallowRef<T extends Ref>(value: T): T
 export function shallowRef<T>(value: T): ShallowRef<T>
 export function shallowRef<T = any>(): ShallowRef<T | undefined>
 export function shallowRef(value?: unknown) {
-  return createRef(value, true)
+    throw new Error("STUB");
 }
 
 function createRef(rawValue: unknown, shallow: boolean) {
-  if (isRef(rawValue)) {
-    return rawValue
-  }
-  const ref: any = {}
-  def(ref, RefFlag, true)
-  def(ref, ReactiveFlags.IS_SHALLOW, shallow)
-  def(
-    ref,
-    'dep',
-    defineReactive(ref, 'value', rawValue, null, shallow, isServerRendering())
-  )
-  return ref
+    throw new Error("STUB");
 }
 
 export function triggerRef(ref: Ref) {
-  if (__DEV__ && !ref.dep) {
-    warn(`received object is not a triggerable ref.`)
-  }
-  if (__DEV__) {
-    ref.dep &&
-      ref.dep.notify({
-        type: TriggerOpTypes.SET,
-        target: ref,
-        key: 'value'
-      })
-  } else {
-    ref.dep && ref.dep.notify()
-  }
+    throw new Error("STUB");
 }
 
 export function unref<T>(ref: T | Ref<T>): T {
-  return isRef(ref) ? (ref.value as any) : ref
+    throw new Error("STUB");
 }
 
 export function proxyRefs<T extends object>(
   objectWithRefs: T
 ): ShallowUnwrapRef<T> {
-  if (isReactive(objectWithRefs)) {
-    return objectWithRefs as any
-  }
-  const proxy = {}
-  const keys = Object.keys(objectWithRefs)
-  for (let i = 0; i < keys.length; i++) {
-    proxyWithRefUnwrap(proxy, objectWithRefs, keys[i])
-  }
-  return proxy as any
+    throw new Error("STUB");
 }
 
 export function proxyWithRefUnwrap(
@@ -117,22 +86,10 @@ export function proxyWithRefUnwrap(
     enumerable: true,
     configurable: true,
     get: () => {
-      const val = source[key]
-      if (isRef(val)) {
-        return val.value
-      } else {
-        const ob = val && val.__ob__
-        if (ob) ob.dep.depend()
-        return val
-      }
+        throw new Error("STUB");
     },
     set: value => {
-      const oldValue = source[key]
-      if (isRef(oldValue) && !isRef(value)) {
-        oldValue.value = value
-      } else {
-        source[key] = value
-      }
+        throw new Error("STUB");
     }
   })
 }
@@ -146,41 +103,7 @@ export type CustomRefFactory<T> = (
 }
 
 export function customRef<T>(factory: CustomRefFactory<T>): Ref<T> {
-  const dep = new Dep()
-  const { get, set } = factory(
-    () => {
-      if (__DEV__) {
-        dep.depend({
-          target: ref,
-          type: TrackOpTypes.GET,
-          key: 'value'
-        })
-      } else {
-        dep.depend()
-      }
-    },
-    () => {
-      if (__DEV__) {
-        dep.notify({
-          target: ref,
-          type: TriggerOpTypes.SET,
-          key: 'value'
-        })
-      } else {
-        dep.notify()
-      }
-    }
-  )
-  const ref = {
-    get value() {
-      return get()
-    },
-    set value(newVal) {
-      set(newVal)
-    }
-  } as any
-  def(ref, RefFlag, true)
-  return ref
+    throw new Error("STUB");
 }
 
 export type ToRefs<T = any> = {
@@ -188,14 +111,7 @@ export type ToRefs<T = any> = {
 }
 
 export function toRefs<T extends object>(object: T): ToRefs<T> {
-  if (__DEV__ && !isReactive(object)) {
-    warn(`toRefs() expects a reactive object but received a plain one.`)
-  }
-  const ret: any = isArray(object) ? new Array(object.length) : {}
-  for (const key in object) {
-    ret[key] = toRef(object, key)
-  }
-  return ret
+    throw new Error("STUB");
 }
 
 export type ToRef<T> = IfAny<T, Ref<T>, [T] extends [Ref] ? T : Ref<T>>
@@ -216,21 +132,7 @@ export function toRef<T extends object, K extends keyof T>(
   key: K,
   defaultValue?: T[K]
 ): ToRef<T[K]> {
-  const val = object[key]
-  if (isRef(val)) {
-    return val as any
-  }
-  const ref = {
-    get value() {
-      const val = object[key]
-      return val === undefined ? (defaultValue as T[K]) : val
-    },
-    set value(newVal) {
-      object[key] = newVal
-    }
-  } as any
-  def(ref, RefFlag, true)
-  return ref
+    throw new Error("STUB");
 }
 
 /**

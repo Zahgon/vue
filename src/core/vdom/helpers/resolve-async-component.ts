@@ -63,7 +63,7 @@ export function resolveAsyncComponent(
     let timerLoading: number | null = null
     let timerTimeout: number | null = null
 
-    owner.$on('hook:destroyed', () => remove(owners, owner))
+    owner.$on('hook:destroyed', () => { throw new Error("STUB"); })
 
     const forceRender = (renderCompleted: boolean) => {
       for (let i = 0, l = owners.length; i < l; i++) {
@@ -84,27 +84,11 @@ export function resolveAsyncComponent(
     }
 
     const resolve = once((res: Object | Component) => {
-      // cache resolved
-      factory.resolved = ensureCtor(res, baseCtor)
-      // invoke callbacks only if this is not a synchronous resolve
-      // (async resolves are shimmed as synchronous during SSR)
-      if (!sync) {
-        forceRender(true)
-      } else {
-        owners.length = 0
-      }
+        throw new Error("STUB");
     })
 
     const reject = once(reason => {
-      __DEV__ &&
-        warn(
-          `Failed to resolve async component: ${String(factory)}` +
-            (reason ? `\nReason: ${reason}` : '')
-        )
-      if (isDef(factory.errorComp)) {
-        factory.error = true
-        forceRender(true)
-      }
+        throw new Error("STUB");
     })
 
     const res = factory(resolve, reject)
@@ -129,11 +113,7 @@ export function resolveAsyncComponent(
           } else {
             // @ts-expect-error NodeJS timeout type
             timerLoading = setTimeout(() => {
-              timerLoading = null
-              if (isUndef(factory.resolved) && isUndef(factory.error)) {
-                factory.loading = true
-                forceRender(false)
-              }
+                throw new Error("STUB");
             }, res.delay || 200)
           }
         }
@@ -141,10 +121,7 @@ export function resolveAsyncComponent(
         if (isDef(res.timeout)) {
           // @ts-expect-error NodeJS timeout type
           timerTimeout = setTimeout(() => {
-            timerTimeout = null
-            if (isUndef(factory.resolved)) {
-              reject(__DEV__ ? `timeout (${res.timeout}ms)` : null)
-            }
+              throw new Error("STUB");
           }, res.timeout)
         }
       }

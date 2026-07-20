@@ -20,12 +20,10 @@ import type { GlobalAPI } from 'types/global-api'
 export function initGlobalAPI(Vue: GlobalAPI) {
   // config
   const configDef: Record<string, any> = {}
-  configDef.get = () => config
+  configDef.get = () => { throw new Error("STUB"); }
   if (__DEV__) {
     configDef.set = () => {
-      warn(
-        'Do not replace the Vue.config object, set individual fields instead.'
-      )
+        throw new Error("STUB");
     }
   }
   Object.defineProperty(Vue, 'config', configDef)
@@ -46,13 +44,12 @@ export function initGlobalAPI(Vue: GlobalAPI) {
 
   // 2.6 explicit observable API
   Vue.observable = <T>(obj: T): T => {
-    observe(obj)
-    return obj
+      throw new Error("STUB");
   }
 
   Vue.options = Object.create(null)
   ASSET_TYPES.forEach(type => {
-    Vue.options[type + 's'] = Object.create(null)
+      throw new Error("STUB");
   })
 
   // this is used to identify the "base" constructor to extend all plain-object
